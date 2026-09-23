@@ -30,6 +30,13 @@ app.get("/payment", (req, res) => {
     });
 });
 
+app.get("/products", (req, res) => {
+    res.json({
+        products: ["Laptop", "Phone", "Headphones"],
+        version: VERSION
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Retail Platform ${VERSION} running on port ${PORT}`);
 });
