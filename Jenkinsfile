@@ -91,6 +91,17 @@ pipeline {
             }
         }
 
+        stage('Checkout Requested Version') {
+              steps {
+                bat """
+                   @echo off
+                   git fetch --tags --force
+                   git checkout --force tags/v${params.VERSION}
+                """
+                 echo "Checked out v${params.VERSION}"
+          }
+        }
+
         stage('Build Docker Image') {
             when {
                 expression {
@@ -144,8 +155,9 @@ pipeline {
         stage('Create Network') {
             steps {
                 bat """
-                    "${DOCKER}" network inspect ${NETWORK_NAME} >nul 2>&1 || docker network create ${NETWORK_NAME}
+                    "${DOCKER}" network inspect ${NETWORK_NAME} >nul 2>&1 || "${DOCKER}" network create ${NETWORK_NAME}
                 """
+                 echo "Docker network ${NETWORK_NAME} is ready."
             }
         }
 
