@@ -100,7 +100,7 @@ pipeline {
 
             steps {
                 bat """
-                    "${DOCKER}"build -t ${IMAGE_NAME}:${params.VERSION} .
+                    "${DOCKER}" build -t ${IMAGE_NAME}:${params.VERSION} .
                 """
 
                 echo "Docker image created: ${IMAGE_NAME}:${params.VERSION}"
