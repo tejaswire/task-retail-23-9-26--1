@@ -17,6 +17,8 @@ health check Healthy(yes)-remove old version-Deployment SUCCESS
 
 DOCKER:
 starting version:v4.2.0-main-(original production relese)
+now this names as---> git checkout v4.2.0--because we added git tag v4.2.0
 hotfix/payment-4.2.1 code is merged---main (now production release)
+now this names as main--->git checkout main
 so 2 docker images-4.2.0,4.2.1
 container-- for only 4.2.1 ---because now production is in 4.2.1
