@@ -37,6 +37,13 @@ app.get("/products", (req, res) => {
     });
 });
 
+app.get("/orders", (req, res) => {
+    res.json({
+        orders: ["ORD1001", "ORD1002"],
+        version: VERSION
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Retail Platform ${VERSION} running on port ${PORT}`);
 });
