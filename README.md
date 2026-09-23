@@ -15,5 +15,8 @@ container should start, broken container should not start).
 health check Healthy(yes)-remove old version-Deployment SUCCESS
              Failed(no)-Rollback old version---Restore 4.2.1---Final jenkins FAILURES
 
-extra internal conflict:
-Production version: 4.2.1
+DOCKER:
+starting version:v4.2.0-main-(original production relese)
+hotfix/payment-4.2.1 code is merged---main (now production release)
+so 2 docker images-4.2.0,4.2.1
+container-- for only 4.2.1 ---because now production is in 4.2.1
