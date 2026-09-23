@@ -25,7 +25,7 @@ app.get("/health", (req, res) => {
 
 app.get("/payment", (req, res) => {
     res.json({
-        paymentStatus: "PAYMENT_PROCESSING",
+        paymentStatus: "PAYMENT_SUCCESS",
         version: VERSION
     });
 });
