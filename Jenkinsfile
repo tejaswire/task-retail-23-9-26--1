@@ -33,6 +33,7 @@ pipeline {
         CONTAINER_NAME = 'retail-app'
         NETWORK_NAME = 'retail-network'
         APP_PORT = '8081'
+        DOCKER = "C:\Users\DELL\AppData\Local\Programs\DockerDesktop\resources\bin\docker.exe"
     }
 
     stages {
@@ -99,7 +100,7 @@ pipeline {
 
             steps {
                 bat """
-                    docker build -t ${IMAGE_NAME}:${params.VERSION} .
+                    C:\Users\DELL\AppData\Local\Programs\DockerDesktop\resources\bin\docker.exe build -t ${IMAGE_NAME}:${params.VERSION} .
                 """
 
                 echo "Docker image created: ${IMAGE_NAME}:${params.VERSION}"
