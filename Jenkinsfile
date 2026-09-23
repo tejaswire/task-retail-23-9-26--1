@@ -170,13 +170,13 @@ pipeline {
                         "${DOCKER}" run -d ^
                         --name ${CONTAINER_NAME}-new ^
                         --network ${NETWORK_NAME} ^
-                        -p ${APP_PORT}:8081 ^
+                        -p 8082:8081 ^
                         -e APP_VERSION=${params.VERSION} ^
                         -e ENVIRONMENT=${params.ENVIRONMENT} ^
                         ${IMAGE_NAME}:${params.VERSION}
                     """
 
-                    echo "New version started."
+                    echo "New version started on temporary port 8082."
                 }
             }
         }
