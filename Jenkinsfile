@@ -101,7 +101,7 @@ pipeline {
                  echo "Checked out v${params.VERSION}"
           }
         }
-
+       
         stage('Build Docker Image') {
             when {
                 expression {
