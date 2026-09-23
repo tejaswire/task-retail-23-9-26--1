@@ -135,18 +135,15 @@ pipeline {
          */
 
         stage('Checkout Requested Version') {
-
-            steps {
-
-                bat """
-                    @echo off
-                    git fetch --tags --force
-                    git checkout --force tags/v${params.VERSION}
-                """
-
-                echo "Checked out v${params.VERSION}"
-            }
-        }
+          steps {
+             bat """
+               @echo off
+               git fetch --tags --force
+               git checkout --force tags/v${params.VERSION}
+             """
+             echo "Checked out v${params.VERSION}"
+             }
+         }
 
 
         /*
