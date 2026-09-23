@@ -1,6 +1,6 @@
 ##verisions
 main-4.2.0---main code
-develop branch--feature1,feature2 --again created new branch(release/4.3.0) ---pushed develop branch code with f1,f2 changes  to  release/4.3.0
+develop branch--feature1,feature2 --again created new branch-(release/4.3.0) ---pushed develop branch code with f1,f2 changes  to  release/4.3.0
 created hotfix/payment-4.2.1(here payment fix did)
 now this hotfix/payment-4.2.1 is mearged to main(changes should happen there)------v4.2.1(it is tagged as v4.2.1)
 Again this hotfix/payment-4.2.1 is mearged to develop(because developers have to know the changes in code)
