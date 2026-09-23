@@ -119,7 +119,7 @@ pipeline {
 
                     def previousImage = bat(
                         script: """
-                            docker inspect ${CONTAINER_NAME} --format="{{.Config.Image}}"
+                            "${DOCKER}" inspect ${CONTAINER_NAME} --format="{{.Config.Image}}"
                         """,
                         returnStatus: true
                     )
@@ -127,7 +127,7 @@ pipeline {
                     if (previousImage == 0) {
                         env.PREVIOUS_IMAGE = bat(
                             script: """
-                                docker inspect ${CONTAINER_NAME} --format="{{.Config.Image}}"
+                                "${DOCKER}" inspect ${CONTAINER_NAME} --format="{{.Config.Image}}"
                             """,
                             returnStdout: true
                         ).trim()
@@ -144,7 +144,7 @@ pipeline {
         stage('Create Network') {
             steps {
                 bat """
-                    docker network inspect ${NETWORK_NAME} >nul 2>&1 || docker network create ${NETWORK_NAME}
+                    "${DOCKER}" network inspect ${NETWORK_NAME} >nul 2>&1 || docker network create ${NETWORK_NAME}
                 """
             }
         }
@@ -163,11 +163,11 @@ pipeline {
                     echo "NEW VERSION: ${IMAGE_NAME}:${params.VERSION}"
 
                     bat """
-                        docker rm -f ${CONTAINER_NAME}-new >nul 2>&1 || exit /b 0
+                        "${DOCKER}" rm -f ${CONTAINER_NAME}-new >nul 2>&1 || exit /b 0
                     """
 
                     bat """
-                        docker run -d ^
+                        "${DOCKER}" run -d ^
                         --name ${CONTAINER_NAME}-new ^
                         --network ${NETWORK_NAME} ^
                         -p ${APP_PORT}:8081 ^
@@ -193,7 +193,7 @@ pipeline {
 
                     def health = bat(
                         script: """
-                            powershell -Command "& { Start-Sleep -Seconds 15; \$status = docker inspect --format='{{.State.Health.Status}}' ${CONTAINER_NAME}-new; Write-Host \$status; if (\$status -ne 'healthy') { exit 1 } }"
+                            powershell -Command "& { Start-Sleep -Seconds 15; \$status = "${DOCKER}" inspect --format='{{.State.Health.Status}}' ${CONTAINER_NAME}-new; Write-Host \$status; if (\$status -ne 'healthy') { exit 1 } }"
                         """,
                         returnStatus: true
                     )
@@ -220,11 +220,11 @@ pipeline {
                 script {
 
                     bat """
-                        docker rm -f ${CONTAINER_NAME} >nul 2>&1 || exit /b 0
+                        "${DOCKER}" rm -f ${CONTAINER_NAME} >nul 2>&1 || exit /b 0
                     """
 
                     bat """
-                        docker rename ${CONTAINER_NAME}-new ${CONTAINER_NAME}
+                        "${DOCKER}" rename ${CONTAINER_NAME}-new ${CONTAINER_NAME}
                     """
 
                     echo "New version promoted successfully."
@@ -249,17 +249,17 @@ pipeline {
                     echo "======================================"
 
                     bat """
-                        docker rm -f ${CONTAINER_NAME}-new >nul 2>&1 || exit /b 0
+                        "${DOCKER}" rm -f ${CONTAINER_NAME}-new >nul 2>&1 || exit /b 0
                     """
 
                     if (env.PREVIOUS_IMAGE != "NONE") {
 
                         bat """
-                            docker rm -f ${CONTAINER_NAME} >nul 2>&1 || exit /b 0
+                            "${DOCKER}" rm -f ${CONTAINER_NAME} >nul 2>&1 || exit /b 0
                         """
 
                         bat """
-                            docker run -d ^
+                            "${DOCKER}" run -d ^
                             --name ${CONTAINER_NAME} ^
                             --network ${NETWORK_NAME} ^
                             -p ${APP_PORT}:8081 ^
